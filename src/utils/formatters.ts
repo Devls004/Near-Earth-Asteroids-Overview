@@ -9,3 +9,15 @@ export const dateFormatter = (params: ValueFormatterParams): string => {
     day: "numeric"
   });
 };
+
+export const poHazFormatter = (params: ValueFormatterParams): string => {
+  if (!params.value || params.value.toLowerCase() === 'n/a') return '';
+  const val = params.value.toString().toUpperCase();
+  if (val === 'Y') return 'Yes';
+  if (val === 'N') return 'No';
+  return params.value;
+};
+
+export const textFormatter = (value: string): string => {
+  return value ? value.toLowerCase() : '';
+};

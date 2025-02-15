@@ -5,7 +5,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import Header from "./components/Header";
 import { dateComparator, sortDateComparator, sortNumberComparator } from "./utils/filterComparators";
-import { dateFormatter } from "./utils/formatters";
+import { dateFormatter, poHazFormatter, textFormatter } from "./utils/formatters";
 
 const columnDefs: ColDef[] = [
   {
@@ -13,6 +13,7 @@ const columnDefs: ColDef[] = [
     headerName: 'Designation',
     sortable: true,
     filter: 'agTextColumnFilter',
+    filterParams: { textFormatter },
   },
   {
     field: 'discovery_date',
@@ -70,12 +71,15 @@ const columnDefs: ColDef[] = [
     headerName: 'Potentially Hazardous',
     sortable: true,
     filter: 'agTextColumnFilter',
+    filterParams: { textFormatter },
+    valueFormatter: poHazFormatter,
   },
   {
     field: 'orbit_class',
     headerName: 'Orbit Class',
     sortable: true,
     filter: 'agTextColumnFilter',
+    filterParams: { textFormatter },
     enableRowGroup: true,
   },
 ];

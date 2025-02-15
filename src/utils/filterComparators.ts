@@ -9,8 +9,8 @@ export const sortNumberComparator = (
 };
 
 export const sortDateComparator = (
-  currentDateValue: any,
-  nextDateValue: any
+  currentDateValue: Date,
+  nextDateValue: Date
 ): number => {
   if (!currentDateValue && !nextDateValue) return 0;
   if (!currentDateValue) return 1;
