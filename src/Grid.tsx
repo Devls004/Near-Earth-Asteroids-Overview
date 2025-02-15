@@ -4,18 +4,78 @@ import data from "./near-earth-asteroids.json";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import Header from "./components/Header";
+import { dateComparator, sortDateComparator, sortNumberComparator } from "./utils/filterComparators";
 
 const columnDefs: ColDef[] = [
-  { field: "designation", headerName: "Designation" },
-  { field: "discovery_date", headerName: "Discovery Date" },
-  { field: "h_mag", headerName: "H (mag)" },
-  { field: "moid_au", headerName: "MOID (au)" },
-  { field: "q_au_1", headerName: "q (au)" },
-  { field: "q_au_2", headerName: "Q (au)" },
-  { field: "period_yr", headerName: "Period (yr)" },
-  { field: "i_deg", headerName: "Inclination (deg)" },
-  { field: "pha", headerName: "Potentially Hazardous" },
-  { field: "orbit_class", headerName: "Orbit Class", enableRowGroup: true, },
+  {
+    field: 'designation',
+    headerName: 'Designation',
+    sortable: true,
+    filter: 'agTextColumnFilter',
+  },
+  {
+    field: 'discovery_date',
+    headerName: 'Discovery Date',
+    sortable: true,
+    filter: 'agDateColumnFilter',
+    filterParams: { comparator: dateComparator },
+    comparator: sortDateComparator,
+  },
+  {
+    field: 'h_mag',
+    headerName: 'H (mag)',
+    sortable: true,
+    filter: 'agNumberColumnFilter',
+    comparator: sortNumberComparator,
+  },
+  {
+    field: 'moid_au',
+    headerName: 'MOID (au)',
+    sortable: true,
+    filter: 'agNumberColumnFilter',
+    comparator: sortNumberComparator,
+  },
+  {
+    field: 'q_au_1',
+    headerName: 'q (au)',
+    sortable: true,
+    filter: 'agNumberColumnFilter',
+    comparator: sortNumberComparator,
+  },
+  {
+    field: 'q_au_2',
+    headerName: 'Q (au)',
+    sortable: true,
+    filter: 'agNumberColumnFilter',
+    comparator: sortNumberComparator,
+  },
+  {
+    field: 'period_yr',
+    headerName: 'Period (yr)',
+    sortable: true,
+    filter: 'agNumberColumnFilter',
+    comparator: sortNumberComparator,
+  },
+  {
+    field: 'i_deg',
+    headerName: 'Inclination (deg)',
+    sortable: true,
+    filter: 'agNumberColumnFilter',
+    comparator: sortNumberComparator,
+  },
+  {
+    field: 'pha',
+    headerName: 'Potentially Hazardous',
+    sortable: true,
+    filter: 'agTextColumnFilter',
+  },
+  {
+    field: 'orbit_class',
+    headerName: 'Orbit Class',
+    sortable: true,
+    filter: 'agTextColumnFilter',
+    enableRowGroup: true,
+  },
 ];
 
 const NeoGrid = (): JSX.Element => {
@@ -26,7 +86,7 @@ const NeoGrid = (): JSX.Element => {
         <AgGridReact
           rowData={data}
           columnDefs={columnDefs}
-          rowGroupPanelShow={'always'}
+          rowGroupPanelShow={"always"}
         />
       </div>
     </>
