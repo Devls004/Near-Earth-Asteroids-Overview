@@ -5,6 +5,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import Header from "./components/Header";
 import { dateComparator, sortDateComparator, sortNumberComparator } from "./utils/filterComparators";
+import { dateFormatter } from "./utils/formatters";
 
 const columnDefs: ColDef[] = [
   {
@@ -20,6 +21,7 @@ const columnDefs: ColDef[] = [
     filter: 'agDateColumnFilter',
     filterParams: { comparator: dateComparator },
     comparator: sortDateComparator,
+    valueFormatter: dateFormatter,
   },
   {
     field: 'h_mag',
