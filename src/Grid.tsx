@@ -4,83 +4,98 @@ import data from "./near-earth-asteroids.json";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import Header from "./components/Header";
-import { dateComparator, sortDateComparator, sortNumberComparator } from "./utils/filterComparators";
-import { dateFormatter, poHazFormatter, textFormatter } from "./utils/formatters";
+import {
+  dateComparator,
+  sortDateComparator,
+  sortNumberComparator,
+} from "./utils/filterComparators";
+import {
+  dateFormatter,
+  poHazFormatter,
+  textFormatter,
+} from "./utils/formatters";
+import "./Grid.css";
+
+/*
+  import { RangeSelectionModule } from '@ag-grid-enterprise/range-selection';
+  The correct way to select multiple cells is to use the RangeSelectionModule but it is an enterprise feature.
+  I used CSS styles instead to get the feature.
+*/
 
 const columnDefs: ColDef[] = [
   {
-    field: 'designation',
-    headerName: 'Designation',
+    field: "designation",
+    headerName: "Designation",
     sortable: true,
-    filter: 'agTextColumnFilter',
+    filter: "agTextColumnFilter",
     filterParams: { textFormatter },
   },
   {
-    field: 'discovery_date',
-    headerName: 'Discovery Date',
+    field: "discovery_date",
+    headerName: "Discovery Date",
     sortable: true,
-    filter: 'agDateColumnFilter',
+    filter: "agDateColumnFilter",
     filterParams: { comparator: dateComparator },
     comparator: sortDateComparator,
     valueFormatter: dateFormatter,
   },
   {
-    field: 'h_mag',
-    headerName: 'H (mag)',
+    field: "h_mag",
+    headerName: "H (mag)",
     sortable: true,
-    filter: 'agNumberColumnFilter',
+    filter: "agNumberColumnFilter",
     comparator: sortNumberComparator,
   },
   {
-    field: 'moid_au',
-    headerName: 'MOID (au)',
+    field: "moid_au",
+    headerName: "MOID (au)",
     sortable: true,
-    filter: 'agNumberColumnFilter',
+    filter: "agNumberColumnFilter",
     comparator: sortNumberComparator,
   },
   {
-    field: 'q_au_1',
-    headerName: 'q (au)',
+    field: "q_au_1",
+    headerName: "q (au)",
     sortable: true,
-    filter: 'agNumberColumnFilter',
+    filter: "agNumberColumnFilter",
     comparator: sortNumberComparator,
   },
   {
-    field: 'q_au_2',
-    headerName: 'Q (au)',
+    field: "q_au_2",
+    headerName: "Q (au)",
     sortable: true,
-    filter: 'agNumberColumnFilter',
+    filter: "agNumberColumnFilter",
     comparator: sortNumberComparator,
   },
   {
-    field: 'period_yr',
-    headerName: 'Period (yr)',
+    field: "period_yr",
+    headerName: "Period (yr)",
     sortable: true,
-    filter: 'agNumberColumnFilter',
+    filter: "agNumberColumnFilter",
     comparator: sortNumberComparator,
   },
   {
-    field: 'i_deg',
-    headerName: 'Inclination (deg)',
+    field: "i_deg",
+    headerName: "Inclination (deg)",
     sortable: true,
-    filter: 'agNumberColumnFilter',
+    filter: "agNumberColumnFilter",
     comparator: sortNumberComparator,
   },
   {
-    field: 'pha',
-    headerName: 'Potentially Hazardous',
+    field: "pha",
+    headerName: "Potentially Hazardous",
     sortable: true,
-    filter: 'agTextColumnFilter',
+    filter: "agTextColumnFilter",
     filterParams: { textFormatter },
     valueFormatter: poHazFormatter,
   },
   {
-    field: 'orbit_class',
-    headerName: 'Orbit Class',
+    field: "orbit_class",
+    headerName: "Orbit Class",
     sortable: true,
-    filter: 'agTextColumnFilter',
+    filter: "agTextColumnFilter",
     filterParams: { textFormatter },
-    enableRowGroup: true,
+    /* enableRowGroup: true, */
   },
 ];
 
@@ -88,10 +103,11 @@ const NeoGrid = (): JSX.Element => {
   return (
     <>
       <Header title="Near-Earth Object Overview" />
-      <div className="ag-theme-alpine" style={{ height: 900, width: 1920 }}>
+      <div className="ag-theme-alpine grid-container">
         <AgGridReact
           rowData={data}
           columnDefs={columnDefs}
+          /* cellSelection={true} */
           rowGroupPanelShow={"always"}
         />
       </div>

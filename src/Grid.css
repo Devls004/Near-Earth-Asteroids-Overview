@@ -1,0 +1,10 @@
+.grid-container {
+  height: 860px;
+  width: 100%;
+  min-width: 1520px;
+  padding: 20px;
+}
+
+.ag-cell {
+  user-select: text;
+}
