@@ -1,5 +1,5 @@
 import { AgGridReact } from "ag-grid-react";
-import { ColDef } from "ag-grid-community";
+import { ColDef, GridApi, GridReadyEvent } from "ag-grid-community";
 import data from "./near-earth-asteroids.json";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
@@ -15,6 +15,7 @@ import {
   textFormatter,
 } from "./utils/formatters";
 import "./Grid.css";
+import { useCallback, useRef } from "react";
 
 /*
   import { RangeSelectionModule } from '@ag-grid-enterprise/range-selection';
@@ -100,15 +101,34 @@ const columnDefs: ColDef[] = [
 ];
 
 const NeoGrid = (): JSX.Element => {
+  const gridApiRef = useRef<GridApi<any>>(null);
+
+  const onGridReady = useCallback((params: GridReadyEvent) => {
+    (gridApiRef.current as GridApi<any>) = params.api;
+  }, []);
+
+  const clearFiltersAndSorters = useCallback(() => {
+    if (gridApiRef.current) {
+      gridApiRef.current.setFilterModel(null);
+      gridApiRef.current.applyColumnState({
+        defaultState: { sort: null },
+      });
+    }
+  }, [gridApiRef]);
+
   return (
     <>
-      <Header title="Near-Earth Object Overview" />
+      <Header
+        title="Near-Earth Object Overview"
+        onClear={clearFiltersAndSorters}
+      />
       <div className="ag-theme-alpine grid-container">
         <AgGridReact
           rowData={data}
           columnDefs={columnDefs}
-          /* cellSelection={true} */
+          onGridReady={onGridReady}
           rowGroupPanelShow={"always"}
+          /* cellSelection={true} */
         />
       </div>
     </>
